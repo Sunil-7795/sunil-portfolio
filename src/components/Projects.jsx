@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 function Projects() {
   const projects = [
     {
@@ -49,27 +51,121 @@ function Projects() {
       <div className="projects-container">
 
         {/* Section Heading */}
-        <div className="section-heading projects-heading">
+        <motion.div
+          className="section-heading projects-heading"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{
+            once: true,
+            amount: 0.25,
+          }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.12,
+              },
+            },
+          }}
+        >
 
-          <p>MY WORK</p>
+          <motion.p
+            variants={{
+              hidden: {
+                opacity: 0,
+                y: 25,
+              },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.55,
+                  ease: [0.22, 1, 0.36, 1],
+                },
+              },
+            }}
+          >
+            MY WORK
+          </motion.p>
 
-          <h2>Featured Projects</h2>
 
-          <span>
+          <motion.h2
+            variants={{
+              hidden: {
+                opacity: 0,
+                y: 30,
+              },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.65,
+                  ease: [0.22, 1, 0.36, 1],
+                },
+              },
+            }}
+          >
+            Featured Projects
+          </motion.h2>
+
+
+          <motion.span
+            variants={{
+              hidden: {
+                opacity: 0,
+                y: 25,
+              },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.55,
+                  ease: [0.22, 1, 0.36, 1],
+                },
+              },
+            }}
+          >
             A selection of projects I've built using software
             development and machine learning technologies.
-          </span>
+          </motion.span>
 
-        </div>
+        </motion.div>
 
 
         {/* Projects Grid */}
         <div className="projects-grid">
 
           {projects.map((project, index) => (
-            <article
+            <motion.article
               className="project-card"
               key={project.title}
+
+              initial={{
+                opacity: 0,
+                y: 45,
+                scale: 0.97,
+              }}
+
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+              }}
+
+              viewport={{
+                once: true,
+                amount: 0.18,
+              }}
+
+              transition={{
+                duration: 0.7,
+                delay: index * 0.12,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+
+              whileHover={{
+                y: -6,
+              }}
             >
 
               {/* Border Glow */}
@@ -141,7 +237,7 @@ function Projects() {
 
               </div>
 
-            </article>
+            </motion.article>
           ))}
 
         </div>

@@ -1,4 +1,9 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+
 function Contact() {
+  const [status, setStatus] = useState("");
+
   const contactItems = [
     {
       type: "email",
@@ -74,8 +79,35 @@ function Contact() {
     );
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    setStatus("sending");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(
+        "https://formspree.io/f/xkjgkqvw",
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -83,7 +115,16 @@ function Contact() {
       <div className="contact-container">
 
         {/* CONTACT HEADING */}
-        <div className="contact-heading">
+        <motion.div
+          className="contact-heading"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{
+            duration: 0.7,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
           <p>CONTACT</p>
 
           <h2>Let's connect.</h2>
@@ -92,16 +133,30 @@ function Contact() {
             I'm open to software development opportunities,
             collaborations and conversations about technology.
           </span>
-        </div>
+        </motion.div>
+
 
         {/* CONTACT CONTENT */}
         <div className="contact-content">
 
           {/* LEFT SIDE */}
-          <div className="contact-info">
+          <motion.div
+            className="contact-info"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.12,
+                },
+              },
+            }}
+          >
 
             {contactItems.map((item) => (
-              <a
+              <motion.a
                 key={item.type}
                 href={item.href}
                 className="contact-card"
@@ -117,6 +172,20 @@ function Contact() {
                     ? "noopener noreferrer"
                     : undefined
                 }
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                    y: 20,
+                  },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.55,
+                      ease: [0.22, 1, 0.36, 1],
+                    },
+                  },
+                }}
               >
                 <div className="contact-icon">
                   {getIcon(item.type)}
@@ -127,13 +196,33 @@ function Contact() {
 
                   <strong>{item.value}</strong>
                 </div>
-              </a>
+              </motion.a>
             ))}
 
-          </div>
+          </motion.div>
+
 
           {/* RIGHT SIDE */}
-          <div className="contact-form-card">
+          <motion.div
+            className="contact-form-card"
+            initial={{
+              opacity: 0,
+              x: 35,
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.15,
+            }}
+            transition={{
+              duration: 0.7,
+              delay: 0.1,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
 
             <form onSubmit={handleSubmit}>
 
@@ -142,6 +231,7 @@ function Contact() {
                 <div className="contact-field">
                   <input
                     type="text"
+                    name="name"
                     placeholder="Name *"
                     required
                   />
@@ -150,6 +240,7 @@ function Contact() {
                 <div className="contact-field">
                   <input
                     type="email"
+                    name="email"
                     placeholder="Email *"
                     required
                   />
@@ -160,12 +251,14 @@ function Contact() {
               <div className="contact-field">
                 <input
                   type="text"
+                  name="subject"
                   placeholder="Subject"
                 />
               </div>
 
               <div className="contact-field contact-message">
                 <textarea
+                  name="message"
                   placeholder="Message *"
                   required
                 ></textarea>
@@ -174,6 +267,7 @@ function Contact() {
               <button
                 type="submit"
                 className="contact-submit"
+                disabled={status === "sending"}
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -183,12 +277,28 @@ function Contact() {
                   <path d="m22 2-7 20-4-9-9-4 20-7Z" />
                 </svg>
 
-                <span>Send Message</span>
+                <span>
+                  {status === "sending"
+                    ? "Sending..."
+                    : "Send Message"}
+                </span>
               </button>
+
+              {status === "success" && (
+                <p className="contact-form-success">
+                  ✓ Message sent successfully. Thank you for reaching out!
+                </p>
+              )}
+
+              {status === "error" && (
+                <p className="contact-form-error">
+                  ✕ Something went wrong. Please try again.
+                </p>
+              )}
 
             </form>
 
-          </div>
+          </motion.div>
 
         </div>
 

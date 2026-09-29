@@ -21,6 +21,7 @@ function Navbar() {
     if (section) {
       section.scrollIntoView({
         behavior: "smooth",
+        block: "start",
       });
     }
 
@@ -46,8 +47,10 @@ function Navbar() {
 
         {/* Logo */}
         <button
+          type="button"
           className="logo"
           onClick={() => scrollToSection("home")}
+          aria-label="Go to home"
         >
           <span className="logo-mark">S</span>
 
@@ -56,12 +59,11 @@ function Navbar() {
           </span>
         </button>
 
-
         {/* Desktop Navigation */}
         <nav className="nav-links">
-
           {navItems.map((item) => (
             <button
+              type="button"
               key={item.id}
               onClick={() => scrollToSection(item.id)}
             >
@@ -72,7 +74,7 @@ function Navbar() {
           <motion.a
             href="/Sunil_Resume.pdf"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="nav-resume"
             whileHover={{
               scale: 1.04,
@@ -84,25 +86,19 @@ function Navbar() {
             <Download size={15} />
             Resume
           </motion.a>
-
         </nav>
-
 
         {/* Mobile Menu Button */}
         <button
+          type="button"
           className="mobile-menu"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          onClick={() => setMenuOpen((previous) => !previous)}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
         >
-          {menuOpen ? (
-            <X size={24} />
-          ) : (
-            <Menu size={24} />
-          )}
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
-
       </div>
-
 
       {/* Mobile Navigation */}
       <AnimatePresence>
@@ -112,19 +108,25 @@ function Navbar() {
             initial={{
               opacity: 0,
               height: 0,
+              y: -10,
             }}
             animate={{
               opacity: 1,
               height: "auto",
+              y: 0,
             }}
             exit={{
               opacity: 0,
               height: 0,
+              y: -10,
+            }}
+            transition={{
+              duration: 0.2,
             }}
           >
-
             {navItems.map((item) => (
               <button
+                type="button"
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
               >
@@ -135,16 +137,15 @@ function Navbar() {
             <a
               href="/Sunil_Resume.pdf"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
             >
               <Download size={17} />
               Download Resume
             </a>
-
           </motion.div>
         )}
       </AnimatePresence>
-
     </motion.header>
   );
 }

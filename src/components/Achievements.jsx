@@ -4,6 +4,8 @@ import {
   ExternalLink,
 } from "lucide-react";
 
+import { motion } from "framer-motion";
+
 function Achievements() {
   const achievements = [
     {
@@ -29,6 +31,60 @@ function Achievements() {
     },
   ];
 
+
+  /* =====================================================
+     SCROLL ANIMATIONS
+  ===================================================== */
+
+  const headingVariants = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+    },
+
+    visible: {
+      opacity: 1,
+      y: 0,
+
+      transition: {
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
+
+  const containerVariants = {
+    hidden: {},
+
+    visible: {
+      transition: {
+        staggerChildren: 0.16,
+      },
+    },
+  };
+
+
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      y: 40,
+      scale: 0.97,
+    },
+
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+
+      transition: {
+        duration: 0.65,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
+
   return (
     <section
       id="achievements"
@@ -36,9 +92,22 @@ function Achievements() {
     >
       <div className="achievements-container">
 
-        {/* Heading */}
 
-        <div className="section-heading">
+        {/* =================================================
+            HEADING
+        ================================================= */}
+
+        <motion.div
+          className="section-heading"
+          variants={headingVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{
+            once: true,
+            amount: 0.25,
+          }}
+        >
+
           <p>ACHIEVEMENTS</p>
 
           <h2>Beyond academics.</h2>
@@ -47,24 +116,42 @@ function Achievements() {
             Research, industry exposure and experiences
             that contributed to my professional growth.
           </span>
-        </div>
 
-        {/* Achievement Grid */}
+        </motion.div>
 
-        <div className="achievements-list">
+
+        {/* =================================================
+            ACHIEVEMENT GRID
+        ================================================= */}
+
+        <motion.div
+          className="achievements-list"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{
+            once: true,
+            amount: 0.15,
+          }}
+        >
+
           {achievements.map((achievement) => {
             const Icon = achievement.icon;
 
             return (
-              <a
+              <motion.a
                 key={achievement.number}
                 href={achievement.link}
                 target="_blank"
                 rel="noreferrer"
                 className="achievement-card"
+                variants={cardVariants}
               >
 
-                {/* Icon */}
+
+                {/* =================================================
+                    ICON
+                ================================================= */}
 
                 <div
                   className={`achievement-icon ${achievement.iconClass}`}
@@ -75,11 +162,15 @@ function Achievements() {
                   />
                 </div>
 
-                {/* Achievement Information */}
+
+                {/* =================================================
+                    ACHIEVEMENT INFORMATION
+                ================================================= */}
 
                 <div className="achievement-info">
 
                   <h3 className="achievement-title">
+
                     <span>
                       {achievement.title}
                     </span>
@@ -89,9 +180,12 @@ function Achievements() {
                       size={16}
                       strokeWidth={2}
                     />
+
                   </h3>
 
+
                   <div className="achievement-meta">
+
                     <span>
                       {achievement.issuer}
                     </span>
@@ -103,14 +197,16 @@ function Achievements() {
                     <span>
                       {achievement.year}
                     </span>
+
                   </div>
 
                 </div>
 
-              </a>
+              </motion.a>
             );
           })}
-        </div>
+
+        </motion.div>
 
       </div>
     </section>

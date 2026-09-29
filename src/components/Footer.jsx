@@ -1,5 +1,31 @@
+import { motion } from "framer-motion";
+
 function Footer() {
   const currentYear = new Date().getFullYear();
+
+  const fadeUp = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
+  const container = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.12,
+      },
+    },
+  };
 
   return (
     <footer className="footer">
@@ -24,11 +50,23 @@ function Footer() {
             TOP SECTION
         ================================= */}
 
-        <div className="footer-content">
+        <motion.div
+          className="footer-content"
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{
+            once: true,
+            amount: 0.15,
+          }}
+        >
 
           {/* BRAND */}
 
-          <div className="footer-brand-section">
+          <motion.div
+            className="footer-brand-section"
+            variants={fadeUp}
+          >
 
             <a
               href="#home"
@@ -49,12 +87,15 @@ function Footer() {
               practical and technology-driven solutions.
             </p>
 
-          </div>
+          </motion.div>
 
 
           {/* NAVIGATION */}
 
-          <div className="footer-links">
+          <motion.div
+            className="footer-links"
+            variants={fadeUp}
+          >
 
             <h3>Navigation</h3>
 
@@ -80,12 +121,15 @@ function Footer() {
 
             </div>
 
-          </div>
+          </motion.div>
 
 
           {/* CONNECT */}
 
-          <div className="footer-connect">
+          <motion.div
+            className="footer-connect"
+            variants={fadeUp}
+          >
 
             <h3>Connect</h3>
 
@@ -104,7 +148,7 @@ function Footer() {
                   viewBox="0 0 24 24"
                   fill="currentColor"
                 >
-                  <path d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.9-2.78.62-3.37-1.22-3.37-1.22-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .08 1.53 1.06 1.53 1.06.9 1.58 2.35 1.12 2.93.86.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.05 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05A9.2 9.2 0 0 1 12 6.9c.85 0 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.92-2.35 4.78-4.59 5.04.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .27.18.59.69.49A10.25 10.25 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z" />
+                  <path d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.9-2.78.62-3.37-1.22-3.37-1.22-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .08 1.53 1.06 1.53 1.06.9 1.58 2.35 1.12 2.93.86.09-.67.35-1.12.64-1.38-.2.26-4.56-1.14-4.56-5.05 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05A9.2 9.2 0 0 1 12 6.9c.85 0 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.92-2.35 4.78-4.59 5.04.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .27.18.59.69.49A10.25 10.25 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z" />
                 </svg>
               </a>
 
@@ -171,23 +215,59 @@ function Footer() {
               +91 7795364566
             </a>
 
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
 
 
         {/* ================================
             DIVIDER
         ================================= */}
 
-        <div className="footer-divider"></div>
+        <motion.div
+          className="footer-divider"
+          initial={{
+            opacity: 0,
+            scaleX: 0,
+          }}
+          whileInView={{
+            opacity: 1,
+            scaleX: 1,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.5,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.2,
+          }}
+        />
 
 
         {/* ================================
             BOTTOM
         ================================= */}
 
-        <div className="footer-bottom">
+        <motion.div
+          className="footer-bottom"
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.5,
+          }}
+          transition={{
+            duration: 0.6,
+            delay: 0.25,
+          }}
+        >
 
           <p>
             © {currentYear} Sunil. All rights reserved.
@@ -201,18 +281,34 @@ function Footer() {
             Bengaluru, India
           </p>
 
-        </div>
+        </motion.div>
 
 
         {/* BACK TO TOP */}
 
-        <a
+        <motion.a
           href="#home"
           className="footer-top-button"
           aria-label="Back to top"
+          initial={{
+            opacity: 0,
+            scale: 0.7,
+          }}
+          whileInView={{
+            opacity: 1,
+            scale: 1,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.5,
+          }}
+          transition={{
+            duration: 0.5,
+            delay: 0.35,
+          }}
         >
           ↑
-        </a>
+        </motion.a>
 
       </div>
 

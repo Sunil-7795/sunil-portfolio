@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 function Education() {
   const education = [
     {
@@ -27,7 +29,27 @@ function Education() {
     <section id="education" className="education-section">
       <div className="education-container">
 
-        <div className="section-heading">
+        {/* Section Heading */}
+
+        <motion.div
+          className="section-heading"
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.25,
+          }}
+          transition={{
+            duration: 0.7,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
           <p>EDUCATION</p>
 
           <h2>Academic journey.</h2>
@@ -35,14 +57,35 @@ function Education() {
           <span>
             My educational background and academic foundation.
           </span>
-        </div>
+        </motion.div>
+
+        {/* Education Timeline */}
 
         <div className="education-timeline">
 
           {education.map((item, index) => (
-            <div
+            <motion.div
               className="education-item"
               key={`${item.year}-${item.degree}`}
+              initial={{
+                opacity: 0,
+                y: 40,
+                scale: 0.97,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.2,
+              }}
+              transition={{
+                duration: 0.7,
+                delay: index * 0.12,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
 
               {/* Timeline marker */}
@@ -82,7 +125,7 @@ function Education() {
 
               </div>
 
-            </div>
+            </motion.div>
           ))}
 
         </div>
