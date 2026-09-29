@@ -18,14 +18,21 @@ function Navbar() {
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
 
-    if (section) {
+    if (!section) {
+      setMenuOpen(false);
+      return;
+    }
+
+    // Close the mobile menu first
+    setMenuOpen(false);
+
+    // Give the menu a moment to close before scrolling
+    setTimeout(() => {
       section.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
-    }
-
-    setMenuOpen(false);
+    }, 50);
   };
 
   return (
@@ -96,7 +103,11 @@ function Navbar() {
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
         >
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          {menuOpen ? (
+            <X size={24} />
+          ) : (
+            <Menu size={24} />
+          )}
         </button>
       </div>
 

@@ -7622,3 +7622,21 @@ body {
 
 
 
+/* =========================================
+   NAVIGATION SCROLL OFFSET
+========================================= */
+
+section {
+  scroll-margin-top: 90px;
+}
+
+
+/* =========================================
+   MOBILE SCROLL OFFSET
+========================================= */
+
+@media (max-width: 480px) {
+  section {
+    scroll-margin-top: 75px;
+  }
+}
